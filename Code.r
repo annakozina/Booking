@@ -1,10 +1,17 @@
 
-library(ggplot2)
-library(gsheet)
-library(stringr)
-library(curl)
-library(dplyr)
-library(lubridate)
+library(ggplot2, lib="/RPackages/")
+library(gsheet, lib="/RPackages/")
+library(stringr, lib="/RPackages/")
+library(curl, lib="/RPackages/")
+library(dplyr, lib="/RPackages/")
+library(lubridate, lib="/RPackages/")
+
+
+
+library(readxl, lib="/RPackages/")
+library(writexl, lib="/RPackages/")
+library(xlsx, lib="/RPackages/")
+library(rJava, lib="/RPackages/")
 
 data <- gsheet2tbl('https://drive.google.com/open?id=1DO_VldRlFXCQYBAbFmFjoQRKYj8zbBuK')
 
@@ -231,6 +238,14 @@ colnames(joined)
 colnames(joined)[1] <- 'date'
 joined$date <- as_date(joined$date)
 str(joined)
+
+getwd()
+
+
+setwd("C:/R")
+
+write.csv(joined, file='booking_11_06.csv')
+
 
 
 ############################## ##########################
