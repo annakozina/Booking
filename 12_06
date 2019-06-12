@@ -6,7 +6,6 @@ library(dplyr, lib="/RPackages/")
 library(lubridate, lib="/RPackages/")
 library(readxl, lib="/RPackages/")
 
-install.packages("gsheet")
 
 library(ggplot2)
 library(gsheet)
@@ -84,27 +83,12 @@ rbind2 <- rbind(data3, data4)
 
 rbind3 <- rbind(rbind1, rbind2)
 
+rm(list=setdiff(ls(), "rbind3"))
 
-FunctionMay <- function(x){
-       if(str_detect(x, 'июн.') == 'TRUE'){
-         #удаляет первые две буквы
-         x<-str_replace_all(x, substring(x, 1, 2), ' ')
-  #       #удаляет пробел
-         x<-str_replace_all(x, '[[:space:]]', '')
-  #       #меняет may на май
-         x<-gsub("июнь","june", x)
-  #       print(x)
-       } else {                  
-         print("smile")
-       }
-     }
+colnames(rbind3)
 
+rbind3$Checkin <- as_date(rbind3$Checkin)
 
-
-
-
-l<- "пт 2019-июн.-12"
-l<- FunctionMay(l)
 
 ###########################################
 ######################################################
@@ -118,27 +102,6 @@ l<- FunctionMay(l)
 ######################################################################################
 ##########################################################################
 #################################################################
-
-rm(list=setdiff(ls(), "rbind3"))
-
-str(rbind3)
-unique(rbind3$Checkin)
-
-Hotel   
-
-new_date<- as.Date(rbind3$Checkin, "%m/%d/%Y")
-
-
-
-
-
-x <- as.POSIXct("пт 2019-июл.-12", "%a-%Y-%b-%d")
-                                   
-
-x <- as.POSIXct(strptime("2002-02-02 02:02", "%Y-%m-%d %H:%M")) 
-
-?strptime
-
 
 Hotel <- c("Gorky Gorod Apartments", 
            #1
@@ -375,21 +338,14 @@ Region <- c(#1 "Gorky Gorod Apartments",
 
 
 
-
+colnames(rbind3)
 
 names_category <- data.frame(Hotel, Category,  Region)
-joined <- left_join(data, names_category, by="Hotel")
-colnames(joined)[3] <- 'price'
+joined <- left_join(rbind3, names_category, by="Hotel")
 
-joined$price <- str_replace_all(joined$price, '[^[:alnum:]]', ' ')
-joined$price <- as.character(joined$price)
+joined$Price <- str_replace_all(joined$Price, '[^[:alnum:]]', ' ')
+joined$Price <- as.character(joined$Price)
 
-
-colnames(joined)
-
-colnames(joined)[1] <- 'date'
-joined$date <- as_date(joined$date)
-str(joined)
 
 
 ###### ##################
@@ -486,7 +442,7 @@ four_star2 <- joined  %>%
 four_star2 <- unique(four_star2$Room)
 ####################################
 "Standard Twin Room"    "Standard Double Room"           "Superior Double Suite"   "Superior Twin Suite"              
- 
+
 
 
 four_star3 <- joined  %>% 
@@ -505,10 +461,10 @@ four_star4 <- joined  %>%
 four_star4 <- unique(four_star4$Room)
 
 "Standard Room"                 "Superior Room with Balcony"                       
-                       "Standard Room with River View"     
+"Standard Room with River View"     
 > 
-
-four_star5 <- joined  %>% 
+  
+  four_star5 <- joined  %>% 
   group_by(Hotel) %>%
   filter(Hotel == "MERCURE Rosa Khutor Hotel") 
 four_star5 <- unique(four_star5$Room)
@@ -516,9 +472,9 @@ four_star5 <- unique(four_star5$Room)
 "Twin Room"       "Standard Double Room - Non-Smoking"             
 [4] "Standard Suite with One Double Bed and One Sofa"
 > 
-#
-
-four_star6 <- joined  %>% 
+  #
+  
+  four_star6 <- joined  %>% 
   group_by(Hotel) %>%
   filter(Hotel == "Golden Tulip Rosa Khutor Hotel") 
 four_star6 <- unique(four_star6$Room) 
@@ -544,7 +500,7 @@ four_star8 <- unique(four_star8$Room)
 [1] "Double Room - Disability Access"   "Twin Room with Sea View"              "Standard Double Room with Sea View"              
 [4] "Suite"                                            "Standard Double Room with Pool View"                                        
 [7] "Standard Twin Room - Club Level with Sea View"    "Standard Double Room - Club Level with Pool View" "Standard Double Room - Club Level with Sea View" 
-                                 
+
 
 four_star9 <- joined  %>% 
   group_by(Hotel) %>%
@@ -574,31 +530,30 @@ four_star12 <- joined  %>%
 four_star12 <- unique(four_star12$Room) 
 
 [1] "Twin Room with Mountain View"    "Suite with Mountain View"        
- "Twin Room with Balcony"          
+"Twin Room with Balcony"          
 
-                                                        
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   
-   unique(joined$Hotel)
-   unique(data$Hotel)
-   
-   three_star <- joined  %>% 
-   group_by(Category) %>%
-   filter(Category == "1-3 звезды") 
- 
- unique(three_star$Hotel)
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!               
-
-#setwd("C:/R")
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
 
-#setwd("C:/R")
 
-write.csv(joined, file='booking_12_06.csv')
+three_star <- joined  %>% 
+  group_by(Category) %>%
+  filter(Category == "1-3 звезды") 
+
+unique(three_star$Hotel)
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!               
+  
+  #setwd("C:/R")
+  
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  
+
+  
+  write.csv(joined, file='booking_12_06.csv')
 
 
 
