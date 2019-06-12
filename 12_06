@@ -352,6 +352,8 @@ joined$Price <- as.character(joined$Price)
 ####################################
 ###########################################Создадим фильтр категории номера
 #####################################
+###############НАСТРОЙКА ФИЛЬТРА ===========СТАНДАРТНЫЙ НОМЕР
+
 five_star <- joined  %>% 
   group_by(Category) %>%
   filter(Category == "5 звезд") 
@@ -411,6 +413,13 @@ five_star6 <- unique(five_star6$Room)
 # [3] "Deluxe Family One-Bedroom Suite"                       
 # [6] "Deluxe Family Suite"                                   
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  ###### ##################
+####################################
+###########################################Создадим фильтр категории номера
+#####################################
+###############НАСТРОЙКА ФИЛЬТРА ===========СТАНДАРТНЫЙ НОМЕР
+  
   four_star <- joined  %>% 
   group_by(Category) %>%
   filter(Category == "4 звезды") 
@@ -536,6 +545,11 @@ four_star12 <- unique(four_star12$Room)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
+  ###### ##################
+####################################
+###########################################Создадим фильтр категории номера
+#####################################
+###############НАСТРОЙКА ФИЛЬТРА ===========СТАНДАРТНЫЙ НОМЕР
 
 
 three_star <- joined  %>% 
@@ -544,198 +558,316 @@ three_star <- joined  %>%
 
 unique(three_star$Hotel)
 
+
+#####################################
+
+three_star1 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "AZIMUT Hotel FREESTYLE Rosa Khutor") 
+
+four_star1 <- unique(three_star1$Room)
+"Superior Twin Room"                               "Junior Suite"                                    
+[3] "Superior Double Room"                             "Superior Twin Room with Balcony"                 
+[5] "Superior Double Room with Balcony"                "Superior Double Room with Balcony and River View"
+[7] "Superior Twin Room with Balcony and River View"   "Superior Double Room with River View"            
+[9] "Superior Twin Room  with River View"             
+> 
+######## 
+####################################
+
+three_star2 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Gorky Premium Art Hotel") 
+three_star2 <- unique(three_star2$Room)
+####################################
+"Deluxe Double or Twin Room"          
+
+
+three_star3 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Hotel 28") 
+three_star3 <- unique(three_star3$Room)
+"Double or Twin Room with Mountain View" "Double or Twin Room with Pool View"    
+
+####################################
+three_star4 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Tulip Inn Rosa Khutor Hotel") 
+three_star4 <- unique(three_star4$Room)
+
+[1] "Standard Double or Twin Room"        "Junior Suite"                        "Suite with Balcony"                 
+[4] "Double or Twin Room with River View"
+  
+
+three_star5 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Gorki Grand") 
+three_star5 <- unique(three_star5$Room)
+ "Standard Double or Twin Room"
+
+  
+ three_star6 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Priyut Pandy") 
+ three_star6 <- unique(three_star6$Room) 
+
+ [1] "Bed in 8-Bed Mixed Dormitory Room"      "Single Bed in 10-Bed Dormitory Room"    "Bed in 4-Bed Dormitory Room"           
+ [4] "Economy Double or Twin Room"            "Superior Double or Twin Room"           "Basic Single Room with Shared Bathroom"
+ [7] "Economy Twin Room"                      "Economy Triple Room"                   
+ 
+###############################################################################################################################
+
+ three_star7 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Rosa Ski Inn Hotel") 
+ four_star7 <- unique(four_star7$Room) 
+
+ "Standard Double or Twin Room"        "Superior Double or Twin Room"        "Junior Suite"                       
+ [4] "Suite"                               "Executive Suite"                     "Double or Twin Room with River View"
+ 
+
+ three_star8 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Crystal Hotel") 
+ three_star8 <- unique(three_star8$Room) 
+
+ [1] "Superior Double or Twin Room with Mountain View" "Superior Double or Twin Room with Terrace"      
+ [3] "Double or Twin Room with Terrace"                "Standard Double or Twin Room"                   
+ [5] "Quadruple Room with Mountain View"              
+ 
+ 
+ three_star9 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "AYS Let It Snow Hotel Rosa Khutor") 
+ three_star9 <- unique(three_star9$Room) 
+ "Single Room with Shared Bathroom" "Twin Room with Shared Bathroom"  
+ 
+
+ three_star10 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Ays Design Hotel Rosa Khutor") 
+ three_star10 <- unique(three_star10$Room) 
+[1] "Standard Double or Twin Room"                               "Standard Queen Room with Two Queen Beds with Mountain View"
+[3] "Double or Twin Room with Shared Bathroom"                   "Twin Room with Shared Bathroom and Mountain View"          
+[5] "Small Double Room with Shared Bathroom"                     "Superior Twin Room with Shared Bathroom and Mountain View" 
+[7] "Small Double Room with Mountain View and Shared Bathroom"   "Standard Double or Twin Room with Mountain View"           
+[9] "Standard Queen Room"                                       
+
+
+ three_star11 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Hotel BoogelWoogel Bar Rosa Khutor") 
+ three_star11 <- unique(three_star11$Room)
+          
+
+ three_star12 <- joined  %>% 
+  group_by(Hotel) %>%
+  filter(Hotel == "Rosa Village Family Hotel") 
+ three_star12 <- unique(three_star12$Room) 
+ 
+ [1] "Superior Double or Twin Room with Terrace"     "Standard Double or Twin Room"                 
+ [3] "Superior Double or Twin Room"                  "Standard Double or Twin Room -  Semi Basement"
+ [5] "Triple Room with Balcony"                      "Standard Double or Twin Room with Balcony"    
+ [7] "Superior Double or Twin Room with Balcony"     "Standard Triple Room"                         
+ [9] "Family Room with Balcony"                      "Family Room with Balcony - Semi Basement"     
+ 
+ 
+ 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!               
   
-  #setwd("C:/R")
+  setwd("C:/R")
   
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   
 
   
-  write.csv(joined, file='booking_12_06.csv')
+  write.csv(joined, file='booking_13_06.csv')
 
 
 
 ############################## ##########################
 ############################## ##########################
 ############################## ##########################
-average<- joined %>%
-  group_by(Hotel) %>%
-  dplyr::summarize(Mean = mean(Price, na.rm=TRUE))
+# average<- joined %>%
+#   group_by(Hotel) %>%
+#   dplyr::summarize(Mean = mean(Price, na.rm=TRUE))
 
-colnames(joined)
-
-Temp <- joined %>% select(Hotel, Region)
-average<-left_join(Temp, joined, by="Hotel")
-
-g <- ggplot(joined, aes(Hotel))
-g + geom_bar(aes(fill=Region), width = 0.5) + 
-  theme(axis.text.x = element_text(angle=45, vjust=0.6)) + 
-  labs(title="Histogram on Categorical Variable", 
-       subtitle="Manufacturer across Vehicle Classes") 
-
-
-
-#####################################################################################
-#####################################################################################
-
-Apart<- joined %>% group_by(Category) %>%
-  select("date", "Hotel", "Price", "Room", "Occupancy", "Refundable", 
-         "Category", "Region") %>% filter(Category=="apart")
-
-
-
-one_three<- joined %>% group_by(Category) %>%
-  select("date", "Hotel", "Price", "Room", "Occupancy", "Refundable", 
-         "Category", "Region") %>% filter(Category=="1-3")
-
-four_five<- joined %>% group_by(Category) %>%
-  select("date", "Hotel", "Price", "Room", "Occupancy", "Refundable", 
-         "Category", "Region") %>% filter(Category=="4-5")
-
-ggplot(four_five, aes(date, Price))+
-  scale_x_date(date_breaks = "1 month", date_labels = "%b-%y",expand = c(0,0))+
-  geom_point(aes(color = Region, shape = Region))
-
-+
-  geom_smooth(aes(color = cyl, fill = cyl), 
-              method = "lm", fullrange = TRUE) +
-  facet_wrap(~cyl) +
-  scale_color_manual(values = c("#00AFBB", "#E7B800", "#FC4E07"))+
-  scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FC4E07")) +
-  theme_bw()
-
-
-
-
-#scale_x_date(date_breaks = "1 month", expand = c(0,0)) 
-
-
-
-
-
-
-
-
-
-#write.csv(data, file = "c:\\ANNA\\BookingPrice.csv", row.names = FALSE)
-
-#write.xlsx(data, file = "c:\\ANNA\\", sheetName="Booking", 
-#col.names=TRUE, row.names=TRUE, append=FALSE)
-ggplot(joined, aes(x = Price, y = Region)) +
-  geom_density_ridges(aes(fill = Region)) +
-  scale_fill_manual(values = c("red4", "yellow2","navyblue", "purple4" )) +
-  labs(title = 'Цены лето 2019 - BOOKING.COM')
-
-
-x<-"Пт 2019-июл-05"
-x <- 'Вт 2019-июн-04'
-
+#  
+# colnames(joined)
 # 
-#    FunctionMay <- function(x){
-#     if(str_detect(x, 'май') == 'TRUE'){
-#       #удаляет первые две буквы
-#         x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       #удаляет пробел
-#         x<-str_replace_all(x, '[[:space:]]', '')
-#       #меняет май на may
-#         x<-gsub("май","may", x)
-#     } else if(str_detect(x, 'июн') == 'TRUE'){
-#         x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       #удаляет пробел
-#         x<-str_replace_all(x, '[[:space:]]', '')
-#       #меняет июнь на june
-#         x<-gsub("июн","june", x)
-#     } else {
-#         print(x)
-#     }
-#      FunctionMay(x)
-
-#   
-# data$day<-sapply()
-#   
-#   #############################
+# warnings()
 # 
-#   
-#   
-#   ###Reserv 1
+# Temp <- joined %>% select(Hotel, Region)
+# average<-left_join(Temp, joined, by="Hotel")
 # 
-#   FunctionMay <- function(x){
-#     if(str_detect(x, 'май') == 'TRUE'){
-#       #удаляет первые две буквы
-#       x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       #удаляет пробел
-#       x<-str_replace_all(x, '[[:space:]]', '')
-#       #меняет may на май
-#       x<-gsub("май","may", x)
-#       print(x)
-#     } else {                  
-#       print("smile")
-#     }
-#   }
-#   
-#   ###########################33
-#   
-#   
-#   FunctionMay <- function(x){
-#     if(x == TRUE){
-#       x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       x<-gsub("май","may", x)
-#     } else {                  
-#       print("smile")
-#     }
-#   }
-#   
-#   ##########
-#   
-#   RESERV 2
-#   
-#   nctionMay <- function(x){
-#     if(str_detect(x, 'май') == 'TRUE'){
-#       #удаляет первые две буквы
-#       x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       #удаляет пробел
-#       x<-str_replace_all(x, '[[:space:]]', '')
-#       #меняет май на may
-#       x<-gsub("май","may", x)
-#     } else if(str_detect(x, 'июн') == 'TRUE'){               
-#       x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       #удаляет пробел
-#       x<-str_replace_all(x, '[[:space:]]', '')
-#       #меняет июнь на june
-#       x<-gsub("июн","june", x)
-#     } else if(str_detect(x, 'июл') == 'TRUE'){
-#       x<-str_replace_all(x, substring(x, 1, 2), ' ')
-#       #удаляет пробел
-#       x<-str_replace_all(x, '[[:space:]]', '')
-#       #меняет июль на july
-#       x<-gsub("июл","july", x)
-#       print(x)
-#     } else {
-#       print(x)
-#     }
-#     
-#     
-#     x <- 5
-#     if(x > 0){
-#       print("Positive number")
-#     }
-#     
-#     rstudio --run-diagnostics
-
-
-library(ggplot2)
-theme_set(theme_classic())
-
-# Histogram on a Categorical variable
-
-
-colnames(data)[2] <- 'HotelName'
-colnames(data)[3] <- 'price'
-colnames(data)[4] <- 'RoomType'
-colnames(data)[5] <- 'Occupancy'
-colnames(data)[6] <- 'Refund'
-colnames(data)[7] <- 'Breakfast'
-colnames(data)[8] <- 'PayMethod'
-colnames(data)[9] <- 'Mlos'
+# g <- ggplot(joined, aes(Hotel))
+# g + geom_bar(aes(fill=Region), width = 0.5) + 
+#   theme(axis.text.x = element_text(angle=45, vjust=0.6)) + 
+#   labs(title="Histogram on Categorical Variable", 
+#        subtitle="Manufacturer across Vehicle Classes") 
+# 
+# 
+# 
+# #####################################################################################
+# #####################################################################################
+# 
+# Apart<- joined %>% group_by(Category) %>%
+#   select("date", "Hotel", "Price", "Room", "Occupancy", "Refundable", 
+#          "Category", "Region") %>% filter(Category=="apart")
+# 
+# 
+# 
+# one_three<- joined %>% group_by(Category) %>%
+#   select("date", "Hotel", "Price", "Room", "Occupancy", "Refundable", 
+#          "Category", "Region") %>% filter(Category=="1-3")
+# 
+# four_five<- joined %>% group_by(Category) %>%
+#   select("date", "Hotel", "Price", "Room", "Occupancy", "Refundable", 
+#          "Category", "Region") %>% filter(Category=="4-5")
+# 
+# ggplot(four_five, aes(date, Price))+
+#   scale_x_date(date_breaks = "1 month", date_labels = "%b-%y",expand = c(0,0))+
+#   geom_point(aes(color = Region, shape = Region))
+# 
+# +
+#   geom_smooth(aes(color = cyl, fill = cyl), 
+#               method = "lm", fullrange = TRUE) +
+#   facet_wrap(~cyl) +
+#   scale_color_manual(values = c("#00AFBB", "#E7B800", "#FC4E07"))+
+#   scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FC4E07")) +
+#   theme_bw()
+# 
+# 
+# 
+# 
+# #scale_x_date(date_breaks = "1 month", expand = c(0,0)) 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# #write.csv(data, file = "c:\\ANNA\\BookingPrice.csv", row.names = FALSE)
+# 
+# #write.xlsx(data, file = "c:\\ANNA\\", sheetName="Booking", 
+# #col.names=TRUE, row.names=TRUE, append=FALSE)
+# ggplot(joined, aes(x = Price, y = Region)) +
+#   geom_density_ridges(aes(fill = Region)) +
+#   scale_fill_manual(values = c("red4", "yellow2","navyblue", "purple4" )) +
+#   labs(title = 'Цены лето 2019 - BOOKING.COM')
+# 
+# 
+# x<-"Пт 2019-июл-05"
+# x <- 'Вт 2019-июн-04'
+# 
+# # 
+# #    FunctionMay <- function(x){
+# #     if(str_detect(x, 'май') == 'TRUE'){
+# #       #удаляет первые две буквы
+# #         x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       #удаляет пробел
+# #         x<-str_replace_all(x, '[[:space:]]', '')
+# #       #меняет май на may
+# #         x<-gsub("май","may", x)
+# #     } else if(str_detect(x, 'июн') == 'TRUE'){
+# #         x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       #удаляет пробел
+# #         x<-str_replace_all(x, '[[:space:]]', '')
+# #       #меняет июнь на june
+# #         x<-gsub("июн","june", x)
+# #     } else {
+# #         print(x)
+# #     }
+# #      FunctionMay(x)
+# 
+# #   
+# # data$day<-sapply()
+# #   
+# #   #############################
+# # 
+# #   
+# #   
+# #   ###Reserv 1
+# # 
+# #   FunctionMay <- function(x){
+# #     if(str_detect(x, 'май') == 'TRUE'){
+# #       #удаляет первые две буквы
+# #       x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       #удаляет пробел
+# #       x<-str_replace_all(x, '[[:space:]]', '')
+# #       #меняет may на май
+# #       x<-gsub("май","may", x)
+# #       print(x)
+# #     } else {                  
+# #       print("smile")
+# #     }
+# #   }
+# #   
+# #   ###########################33
+# #   
+# #   
+# #   FunctionMay <- function(x){
+# #     if(x == TRUE){
+# #       x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       x<-gsub("май","may", x)
+# #     } else {                  
+# #       print("smile")
+# #     }
+# #   }
+# #   
+# #   ##########
+# #   
+# #   RESERV 2
+# #   
+# #   nctionMay <- function(x){
+# #     if(str_detect(x, 'май') == 'TRUE'){
+# #       #удаляет первые две буквы
+# #       x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       #удаляет пробел
+# #       x<-str_replace_all(x, '[[:space:]]', '')
+# #       #меняет май на may
+# #       x<-gsub("май","may", x)
+# #     } else if(str_detect(x, 'июн') == 'TRUE'){               
+# #       x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       #удаляет пробел
+# #       x<-str_replace_all(x, '[[:space:]]', '')
+# #       #меняет июнь на june
+# #       x<-gsub("июн","june", x)
+# #     } else if(str_detect(x, 'июл') == 'TRUE'){
+# #       x<-str_replace_all(x, substring(x, 1, 2), ' ')
+# #       #удаляет пробел
+# #       x<-str_replace_all(x, '[[:space:]]', '')
+# #       #меняет июль на july
+# #       x<-gsub("июл","july", x)
+# #       print(x)
+# #     } else {
+# #       print(x)
+# #     }
+# #     
+# #     
+# #     x <- 5
+# #     if(x > 0){
+# #       print("Positive number")
+# #     }
+# #     
+# #     rstudio --run-diagnostics
+# 
+# 
+# library(ggplot2)
+# theme_set(theme_classic())
+# 
+# # Histogram on a Categorical variable
+# 
+# 
+# colnames(data)[2] <- 'HotelName'
+# colnames(data)[3] <- 'price'
+# colnames(data)[4] <- 'RoomType'
+# colnames(data)[5] <- 'Occupancy'
+# colnames(data)[6] <- 'Refund'
+# colnames(data)[7] <- 'Breakfast'
+# colnames(data)[8] <- 'PayMethod'
+# colnames(data)[9] <- 'Mlos'
