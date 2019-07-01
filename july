@@ -1,0 +1,938 @@
+library(ggplot2, lib="/RPackages/")
+library(gsheet, lib="/RPackages/")
+library(stringr, lib="/RPackages/")
+library(curl, lib="/RPackages/")
+library(dplyr, lib="/RPackages/")
+library(lubridate, lib="/RPackages/")
+library(readxl, lib="/RPackages/")
+
+
+library(ggplot2)
+library(gsheet)
+library(stringr)
+library(curl)
+library(dplyr)
+library(lubridate)
+library(readxl)
+
+
+tempdata1 <- gsheet2tbl('https://drive.google.com/open?id=1QyZP3ms4y40n-3O0f_sQepU46cr_ErV5')
+tempdata2 <- gsheet2tbl('https://drive.google.com/open?id=1UMNG2Au2imuobBy1CQgOgLxYgyA69i-P')
+tempdata3 <- gsheet2tbl('https://drive.google.com/open?id=1FtDFc72ZJJiFzkvw5aqpNbxV7F5d0HnL')
+tempdata4 <- gsheet2tbl('https://drive.google.com/open?id=1seVx_j1r3GeFmbgSdD1qHwf6zbdJ5ZR1')
+
+
+data1 <-tempdata1[-(1:2), , drop = FALSE]
+data2 <-tempdata2[-(1:2), , drop = FALSE]
+data3 <-tempdata3[-(1:2), , drop = FALSE]
+data4 <-tempdata4[-(1:2), , drop = FALSE]
+
+
+colnames(data1)[1] <- 'Checkin'
+colnames(data1)[2] <- 'Hotel'
+colnames(data1)[3] <- 'Price'
+colnames(data1)[4] <- 'Room'
+colnames(data1)[5] <- 'Occupancy'
+colnames(data1)[6] <- 'Refundable'
+colnames(data1)[7] <- 'Breakfast'
+colnames(data1)[8] <- 'Deposit'
+colnames(data1)[9] <- 'MLOS'
+colnames(data1)[10] <- 'Source'
+
+
+colnames(data2)[1] <- 'Checkin'
+colnames(data2)[2] <- 'Hotel'
+colnames(data2)[3] <- 'Price'
+colnames(data2)[4] <- 'Room'
+colnames(data2)[5] <- 'Occupancy'
+colnames(data2)[6] <- 'Refundable'
+colnames(data2)[7] <- 'Breakfast'
+colnames(data2)[8] <- 'Deposit'
+colnames(data2)[9] <- 'MLOS'
+colnames(data2)[10] <- 'Source'
+
+
+colnames(data3)[1] <- 'Checkin'
+colnames(data3)[2] <- 'Hotel'
+colnames(data3)[3] <- 'Price'
+colnames(data3)[4] <- 'Room'
+colnames(data3)[5] <- 'Occupancy'
+colnames(data3)[6] <- 'Refundable'
+colnames(data3)[7] <- 'Breakfast'
+colnames(data3)[8] <- 'Deposit'
+colnames(data3)[9] <- 'MLOS'
+colnames(data3)[10] <- 'Source'
+
+
+colnames(data4)[1] <- 'Checkin'
+colnames(data4)[2] <- 'Hotel'
+colnames(data4)[3] <- 'Price'
+colnames(data4)[4] <- 'Room'
+colnames(data4)[5] <- 'Occupancy'
+colnames(data4)[6] <- 'Refundable'
+colnames(data4)[7] <- 'Breakfast'
+colnames(data4)[8] <- 'Deposit'
+colnames(data4)[9] <- 'MLOS'
+colnames(data4)[10] <- 'Source'
+
+
+rbind1 <- rbind(data1, data2)
+
+rbind2 <- rbind(data3, data4)
+
+rbind3 <- rbind(rbind1, rbind2)
+
+rm(list=setdiff(ls(), "rbind3"))
+
+colnames(rbind3)
+
+rbind3$Checkin <- as_date(rbind3$Checkin)
+
+############!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+###########################################
+######################################################
+################################################################
+##########################################################################
+######################################################################################
+#####################################################################################################
+#####################################################################################################################
+#######################################################################################################################################
+#####################################################################################################
+######################################################################################
+##########################################################################
+#################################################################
+
+str(rbind3)
+
+Hotel <- c("Gorky Gorod Apartments", 
+           #1
+           "VALSET apartments by AZIMUT Rosa Khutor", 
+           #2
+           "ApartHotel Imeretinsky - Parkovy Kvartal", 
+           #3
+           "Apart Hotel Imeretinsky - Pribrezhny Kvartal",
+           #4
+           "Apart Hotel Imeretinskiy - Morskoy Kvartal", 
+           #5
+           "Apart Hotel Imeretinskiy - Zapovedniy Kvartal",
+           #6
+           "Barkhatnye Sezony Yekaterininsky Kvartal Resort",
+           #7
+           "Barkhatnye Sezony Russky Dom Resort 14 Kvartal",
+           #8
+           "Barkhatnye Sezony Russky Dom Resort 17 Kvartal",
+           #9
+           "Gorky Hotel Suites (ex. Solis Sochi Suites)",
+           #10
+           "Rixos Krasnaya Polyana Sochi", 
+           #11
+           "Novotel Resort Krasnaya Polyana Sochi",
+           #12
+           "Grand Hotel Polyana", 
+           #13
+           "Radisson Rosa Khutor Hotel", 
+           #14
+           "Sochi Marriott Krasnaya Polyana Hotel", 
+           #15
+           "Dolina 960 Hotel",
+           #16
+           "Polyana 1389 Hotel & Spa",
+           #17
+           "Rosa Khutor Chalet",                             
+           #18
+           "Medical Spa Hotel Rosa Springs", 
+           #19
+           "Green Flow Hotel Rosa Khutor",                   
+           #20
+           "Gorky Premium Art Hotel",
+           #21
+           "Hotel 28",                                       
+           #22
+           "Tulip Inn Rosa Khutor Hotel", 
+           #23
+           "Gorki Grand", 
+           #24
+           "Priyut Pandy", 
+           #25
+           "Rosa Ski Inn Hotel", 
+           #26
+           "Crystal Hotel", 
+           #27
+           "AYS Let It Snow Hotel Rosa Khutor",
+           #28
+           "Ays Design Hotel Rosa Khutor", 
+           #29
+           "Hotel BoogelWoogel Bar Rosa Khutor",
+           #30
+           "Rosa Village Family Hotel",
+           #31 
+           "Courtyard by Marriott Sochi Krasnaya Polyana",
+           #32
+           "AZIMUT Hotel FREESTYLE Rosa Khutor",
+           #33
+           "Gorki Panorama",
+           #34
+           "Imeretinskiy Hotel",
+           #35
+           "MERCURE Rosa Khutor Hotel",
+           #36
+           "Park Inn by Radisson Rosa Khutor",
+           #37   
+           "Golden Tulip Rosa Khutor Hotel",
+           #38           
+           "Sochi Park® Bogatyr Hotel - Tickets to the Park Included")
+#39
+
+
+Category <- c("апартаменты", 
+              #1 "Gorky Gorod Apartments"
+              "апартаменты", 
+              #2 "VALSET apartments by AZIMUT Rosa Khutor"     
+              "апартаменты", 
+              #3 ApartHotel Imeretinsky - Parkovy Kvartal"
+              "апартаменты", 
+              #4"Apart Hotel Imeretinsky - Pribrezhny Kvartal"
+              "апартаменты", 
+              #5 Apart Hotel Imeretinskiy - Morskoy Kvartal                
+              "апартаменты",
+              #6 "Apart Hotel Imeretinskiy - Zapovedniy Kvartal"
+              "апартаменты",
+              #7 "Barkhatnye Sezony Yekaterininsky Kvartal Resort"
+              "апартаменты", 
+              #8 "Barkhatnye Sezony Russky Dom Resort 14 Kvartal",
+              "апартаменты",
+              #9   "Barkhatnye Sezony Russky Dom Resort 17 Kvartal"
+              "5 звезд",
+              #10 "Gorky Hotel Suites (ex. Solis Sochi Suites)"
+              "5 звезд", 
+              #11 "Rixos Krasnaya Polyana Sochi",
+              "5 звезд",
+              #12 "Novotel Resort Krasnaya Polyana Sochi"
+              "5 звезд",
+              #13 Grand Hotel Polyana"
+              "5 звезд", 
+              #14 Radisson Rosa Khutor Hotel"
+              "5 звезд",
+              #15 Sochi Marriott Krasnaya Polyana Hotel"
+              "4 звезды", 
+              #16 "Dolina 960 Hotel",
+              "4 звезды", 
+              #17  "Polyana 1389 Hotel & Spa",
+              "4 звезды", 
+              #18  "Rosa Khutor Chalet",   
+              "4 звезды",
+              #19  "Medical Spa Hotel Rosa Springs", 
+              "4 звезды",
+              #20   "Green Flow Hotel Rosa Khutor"
+              "1-3 звезды", 
+              #21   "Gorky Premium Art Hotel",
+              "1-3 звезды", 
+              #22    "Hotel 28"
+              "1-3 звезды",
+              #23   "Tulip Inn Rosa Khutor Hotel"
+              "1-3 звезды",
+              #24"  "Gorki Grand", 
+              "1-3 звезды",
+              #25   "Priyut Pandy", 
+              "1-3 звезды",
+              #26 "Rosa Ski Inn Hotel", 
+              "1-3 звезды",
+              #27 "Crystal Hotel", 
+              "1-3 звезды",
+              #28 "AYS Let It Snow Hotel Rosa Khutor",
+              "1-3 звезды",
+              #29 "Ays Design Hotel Rosa Khutor",
+              "1-3 звезды",
+              #30 "Hotel BoogelWoogel Bar Rosa Khutor"
+              "1-3 звезды",
+              #31 "Rosa Village Family Hotel"  
+              "4 звезды",
+              #32 "Courtyard by Marriott Sochi Krasnaya Polyana"
+              "1-3 звезды",
+              #33 "AZIMUT Hotel FREESTYLE Rosa Khutor",
+              "4 звезды", 
+              #34 "Gorki Panorama",
+              "4 звезды",
+              #35"Imeretinskiy Hotel",
+              "4 звезды",
+              #36 "MERCURE Rosa Khutor Hotel",
+              "4 звезды",
+              #37 "Park Inn by Radisson Rosa Khutor",
+              "4 звезды", 
+              #38"Golden Tulip Rosa Khutor Hotel" 
+              "4 звезды")
+#39 "Sochi Park® Bogatyr Hotel - Tickets to the Park Included"
+
+
+Region <- c(#1 "Gorky Gorod Apartments", 
+  "Гокри-Город",
+  #2 "VALSET apartments by AZIMUT Rosa Khutor", 
+  "Роза Хутор",  
+  # 3"ApartHotel Imeretinsky - Parkovy Kvartal", 
+  "Имеретинская",  
+  #4 "Apart Hotel Imeretinsky - Pribrezhny Kvartal",
+  "Имеретинская",
+  #5 "Apart Hotel Imeretinskiy - Morskoy Kvartal" 
+  "Имеретинская", 
+  #6 "Apart Hotel Imeretinskiy - Zapovedniy Kvartal"
+  "Имеретинская", 
+  #7 "Barkhatnye Sezony Yekaterininsky Kvartal Resort"
+  "Имеретинская", 
+  #8"Barkhatnye Sezony Russky Dom Resort 14 Kvartal",
+  "Имеретинская", 
+  #9"Barkhatnye Sezony Russky Dom Resort 17 Kvartal",
+  "Имеретинская",
+  #10"Gorky Hotel Suites (ex. Solis Sochi Suites)",
+  "Гокри-Город",
+  #11 Rixos Krasnaya Polyana Sochi", 
+  "Гокри-Город",
+  #12 "Novotel Resort Krasnaya Polyana Sochi",
+  "Гокри-Город",
+  #13 "Grand Hotel Polyana", 
+  "Газпром",
+  #14"Radisson Rosa Khutor Hotel",
+  "Роза Хутор", 
+  # "15 Sochi Marriott Krasnaya Polyana Hotel", 
+  "Гокри-Город",
+  # "16"Dolina 960 Hotel",
+  "Гокри-Город",
+  #17 "Polyana 1389 Hotel & Spa",
+  "Газпром",
+  #18"Rosa Khutor Chalet",
+  "Роза Хутор",
+  # 19 "Medical Spa Hotel Rosa Springs", 
+  "Роза Хутор",
+  #20 Green Flow Hotel Rosa Khutor",
+  "Роза Хутор",
+  #21"Gorky Premium Art Hotel",
+  "Гокри-Город",
+  #22 "Hotel 28", 
+  "Роза Хутор",
+  #23 "Tulip Inn Rosa Khutor Hotel", 
+  "Роза Хутор",
+  #24 "Gorki Grand",
+  "Гокри-Город",
+  #25"Priyut Pandy", 
+  "Роза Хутор",
+  #26 "Rosa Ski Inn Hotel",
+  "Роза Хутор",
+  #27 "Crystal Hotel", 
+  "Газпром",
+  #28 "AYS Let It Snow Hotel Rosa Khutor",
+  "Роза Хутор",
+  #29 "Ays Design Hotel Rosa Khutor", 
+  "Роза Хутор",
+  #30 "Hotel BoogelWoogel Bar Rosa Khutor",
+  "Роза Хутор",
+  #31 "Rosa Village Family Hotel"
+  "Роза Хутор",
+  #32  "Courtyard by Marriott Sochi Krasnaya Polyana"
+  "Гокри-Город",
+  #33 "AZIMUT Hotel FREESTYLE Rosa Khutor",
+  "Роза Хутор",
+  #34 "Gorki Panorama",
+  "Гокри-Город",
+  #35 "Imeretinskiy Hotel",
+  "Имеретинская",
+  #36 "MERCURE Rosa Khutor Hotel",
+  "Роза Хутор",
+  #37 "Park Inn by Radisson Rosa Khutor", 
+  "Роза Хутор",
+  #38 "Golden Tulip Rosa Khutor Hotel")                          
+  "Роза Хутор",
+  #39 "Sochi Park® Bogatyr Hotel - Tickets to the Park Included"
+  "Имеретинская")
+
+
+
+names_category <- data.frame(Hotel, Category,  Region)
+joined <- left_join(rbind3, names_category, by="Hotel")
+
+joined$Price <- str_replace_all(joined$Price, '[^[:alnum:]]', ' ')
+joined$Price <- as.character(joined$Price)
+
+##############################################################
+#Установим фильтры  5 звезд!!!!!!!!!!!!!!!!!!!
+
+
+
+joined5Star <-joined %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "5 звезд", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable")
+
+
+joined5_Rixos <-joined5Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "5 звезд", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Rixos Krasnaya Polyana Sochi")
+
+joined5_Rixos <- joined5_Rixos %>% filter(Room %in% c("Superior Double Room - Free Spa Access", 
+                                                      "Superior Twin Room - Free Spa Access","Superior Double Room - No Spa Access"))
+
+#### Проверка Rixos
+
+temp <- joined5_Rixos %>% filter(Hotel == "Rixos Krasnaya Polyana Sochi") 
+unique(temp$Room)
+####################################
+# "Superior Double Room - Free Spa Access" "Superior Twin Room - Free Spa Access"  
+#############################################################
+#############################################################
+#############################################################
+##############################################################
+
+
+joined5_Novotel <-joined5Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "5 звезд", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Novotel Resort Krasnaya Polyana Sochi")
+
+joined5_Novotel <- joined5_Novotel %>% filter(Room %in% c("Superior Twin Room â\u0080\u0093 Courtyard View",
+                                                          "Superior Double Room - Courtyard View"))
+
+#### Проверка Novotel
+
+temp <- joined5_Novotel %>% filter(Hotel == "Novotel Resort Krasnaya Polyana Sochi") 
+unique(temp$Room)
+####################################
+
+#############################################################
+#############################################################
+#############################################################
+#############################################################
+
+
+joined5_Grand <-joined5Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "5 звезд", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Grand Hotel Polyana")
+
+joined5_Grand <- joined5_Grand %>% filter(Room %in% "Twin Room with Balcony")
+
+#### Проверка Grand
+
+temp <- joined5_Grand %>% filter(Hotel == "Grand Hotel Polyana") 
+unique(temp$Room)
+#########################
+###### ##################
+####################################
+
+joined5_Mariott <-joined5Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "5 звезд", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Sochi Marriott Krasnaya Polyana Hotel")
+
+joined5_Mariott<- joined5_Mariott %>% filter(Room %in% c("Deluxe Double or Twin Room", 
+                                                        "Deluxe Guest Room with King Bed, mountain View and Balcony"))
+                                
+
+
+#### Проверка Mariott
+
+temp <- joined5_Mariott %>% filter(Hotel == "Sochi Marriott Krasnaya Polyana Hotel") 
+unique(temp$Room)
+
+
+joined5_Radisson <-joined5Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "5 звезд", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Radisson Rosa Khutor Hotel")
+
+joined5_Radisson <- joined5_Radisson %>% filter(Room %in% "Standard Room")                                 
+
+#### Проверка Radisson
+
+temp <- joined5_Radisson %>% filter(Hotel == "Radisson Rosa Khutor Hotel") 
+unique(temp$Room)
+#########################
+###### ##################
+####################################
+
+joined5Star <- rbind(joined5_Rixos,                               
+                     joined5_Novotel,        
+                     joined5_Grand,   
+                     joined5_Mariott,                 
+                     joined5_Radisson)                
+
+
+setwd("C:/R")
+write.csv(joined5Star, paste0("5_star", format(Sys.time(), "%d-%b-%Y %H.%M"), ".csv"))
+
+
+
+##################################### ##########################################################
+##################################### ##########################################################
+#####################################  #########################################################
+##################################### ##########################################################
+##################################### ##########################################################
+#####################################  #########################################################
+##################################### ##########################################################
+##################################### ##########################################################
+#####################################  #########################################################
+##################################### ##########################################################
+##################################### ##########################################################
+#####################################  #########################################################
+
+rm(list=setdiff(ls(), "joined"))
+#################################
+joined4Star <- joined %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable")
+
+unique(joined4Star$Hotel)
+
+##################################
+
+joined4_Dolina <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Dolina 960 Hotel")
+
+joined4_Dolina <- joined4_Dolina %>% filter(Room %in% c("Premium King Room", 
+                                                        "Premium Twin Room"))
+
+#### Проверка Dolina
+
+temp <- joined4_Dolina %>% filter(Hotel == "Dolina 960 Hotel") 
+unique(temp$Room)
+####################################
+
+
+joined4_Panorama <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Gorki Panorama")
+
+joined4_Panorama <- joined4_Panorama %>% filter(Room %in% c("Standard Twin Room",
+                                                            "Standard Double Room"))
+
+#### Проверка Panorama
+
+temp <- joined4_Panorama  %>% filter(Hotel == "Gorki Panorama") 
+unique(temp$Room)
+####################################
+
+joined4_Courtyard <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Courtyard by Marriott Sochi Krasnaya Polyana")
+
+joined4_Courtyard <- joined4_Courtyard %>% filter(Room %in% c("Standard, Guest room, 2 Twin/Single Bed(s), Resort view",
+                                                              "Standard, Guest room, 1 King, Resort view, Balcony"))
+
+#### Проверка Courtyard
+
+temp <- joined4_Courtyard  %>% filter(Hotel == "Courtyard by Marriott Sochi Krasnaya Polyana") 
+unique(temp$Room)
+####################################
+#########################
+
+joined4_Parkinn <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Park Inn by Radisson Rosa Khutor")
+
+joined4_Parkinn <- joined4_Parkinn %>% filter(Room %in% "Standard Room")
+
+
+#### Проверка Parkinn
+
+temp <- joined4_Parkinn  %>% filter(Hotel == "Park Inn by Radisson Rosa Khutor") 
+unique(temp$Room)
+
+#########################
+joined4_Mercure <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "MERCURE Rosa Khutor Hotel")
+
+joined4_Mercure <- joined4_Mercure %>% filter(Room %in% c("Standard Double Room - Non-Smoking",
+                                                          "Twin Room"))
+
+
+#### Проверка Mercure
+
+temp <- joined4_Mercure  %>% filter(Hotel == "MERCURE Rosa Khutor Hotel") 
+unique(temp$Room)
+
+
+#########################
+joined4_Tulip <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Golden Tulip Rosa Khutor Hotel")
+
+joined4_Tulip <- joined4_Tulip %>% filter(Room %in% "Standard Double or Twin Room")
+
+
+#### Проверка Tulip
+
+temp <- joined4_Tulip  %>% filter(Hotel == "Golden Tulip Rosa Khutor Hotel") 
+unique(temp$Room)
+
+
+joined4_Imeretin <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Imeretinskiy Hotel")
+
+joined4_Imeretin <- joined4_Imeretin %>% filter(Room %in% "Standard Double Room with Pool View")
+
+#### Проверка Imeretin
+
+temp <- joined4_Imeretin  %>% filter(Hotel == "Imeretinskiy Hotel") 
+unique(temp$Room)
+
+#############
+
+joined4_1389 <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Polyana 1389 Hotel & Spa")
+
+joined4_1389 <- joined4_1389 %>% filter(Room %in% "Double or Twin Room")
+
+#### Проверка 1389
+
+temp <- joined4_1389  %>% filter(Hotel == "Polyana 1389 Hotel & Spa") 
+unique(temp$Room)
+
+#############################
+#############################
+
+
+joined4_Medical <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Medical Spa Hotel Rosa Springs")
+
+joined4_Medical <- joined4_Medical %>% filter(Room %in% "Standard Double or Twin Room")
+
+#### Проверка Medical
+
+temp <- joined4_Medical  %>% filter(Hotel == "Medical Spa Hotel Rosa Springs") 
+unique(temp$Room)
+
+###############################
+
+joined4_Green <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Green Flow Hotel Rosa Khutor")
+
+joined4_Green <- joined4_Green %>% filter(Room %in% "Double Room with Balcony")
+
+#### Проверка Medical
+
+temp <- joined4_Green  %>% filter(Hotel == "Green Flow Hotel Rosa Khutor") 
+unique(temp$Room)
+
+############################################
+
+
+joined4_Bogat <-joined4Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "4 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Sochi Park® Bogatyr Hotel - Tickets to the Park Included")
+
+joined4_Bogat <- joined4_Bogat %>% filter(Room %in% c("Double or Twin Room",
+                                                      "Standard Double or Twin Room"))
+
+#### Проверка Bogat
+
+temp <- joined4_Bogat  %>% filter(Hotel == "Sochi Park® Bogatyr Hotel - Tickets to the Park Included") 
+unique(temp$Room)
+
+
+joined4Star <- rbind(joined4_1389,
+                     joined4_Courtyard,
+                     joined4_Dolina, 
+                     joined4_Imeretin, 
+                     joined4_Medical,  
+                     joined4_Mercure,
+                     joined4_Panorama,
+                     joined4_Parkinn,
+                     joined4_Tulip,     
+                     joined4_Green,                             
+                     joined4_Bogat)                
+
+
+
+
+setwd("C:/R")
+write.csv(joined4Star, paste0("4_star", format(Sys.time(), "%d-%b-%Y %H.%M"), ".csv"))
+
+
+############################################
+############################################
+############################################ 
+############################################
+############################################
+############################################    
+############################################
+############################################
+############################################ Теперь отфильтруем 3 звезды
+
+
+############################################
+############################################
+############################################ 
+############################################
+############################################
+############################################ 
+
+rm(list=setdiff(ls(), "joined"))
+#################################
+########################################
+#########################################
+################################
+############################
+########################
+
+
+joined3Star <-joined %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "1-3 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable")
+
+
+
+##################################
+
+
+joined3_Azimut <-joined3Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "1-3 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "AZIMUT Hotel FREESTYLE Rosa Khutor")
+
+joined3_Azimut <- joined3_Azimut %>% filter(Room %in% c("Superior Twin Room",
+                                                        "Superior Double Room"))
+
+#### Проверка 
+
+temp <- joined3_Azimut  %>% filter(Hotel == "AZIMUT Hotel FREESTYLE Rosa Khutor") 
+unique(temp$Room)
+
+####
+####
+####
+
+joined3_Art <-joined3Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "1-3 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Gorky Premium Art Hotel")
+
+joined3_Art <- joined3_Art %>% filter(Room %in% "Deluxe Double or Twin Room")
+
+#### Проверка 
+
+temp <- joined3_Art  %>% filter(Hotel == "Gorky Premium Art Hotel") 
+unique(temp$Room)
+
+####
+####
+####
+
+joined3_Tulip <-joined3Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "1-3 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Tulip Inn Rosa Khutor Hotel")
+
+joined3_Tulip <- joined3_Tulip %>% filter(Room %in% "Standard Double or Twin Room")
+
+#### Проверка 
+
+temp <- joined3_Tulip  %>% filter(Hotel == "Tulip Inn Rosa Khutor Hotel") 
+unique(temp$Room)
+
+####
+####
+####
+####
+
+joined3_Grand <-joined3Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "1-3 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Gorki Grand")
+
+
+joined3_Grand <- joined3_Grand %>% filter(Room %in% "Standard Double or Twin Room")
+
+
+temp <- joined3_Grand  %>% filter(Hotel == "Gorki Grand") 
+unique(temp$Room)
+
+####
+
+
+joined3_Rosa <-joined3Star %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "1-3 звезды", Breakfast == "Included"|Breakfast == "Включен",
+         Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Rosa Ski Inn Hotel")
+
+joined3_Rosa <- joined3_Rosa %>% filter(Room %in% "Standard Twin Room - Additional Building B")
+
+
+temp <- joined3_Rosa %>% filter(Hotel == "Rosa Ski Inn Hotel") 
+unique(temp$Room)
+
+####
+############################################
+############################################
+############################################
+#### 
+joined3Star <- rbind(joined3_Azimut, 
+                     joined3_Art,  
+                     joined3_Tulip,
+                     joined3_Grand, 
+                     joined3_Rosa, 
+                     joined3_Tulip)  
+
+setwd("C:/R")
+write.csv(joined3Star, paste0("3_star", format(Sys.time(), "%d-%b-%Y %H.%M"), ".csv"))
+
+
+###################################################################################
+###########################################################################
+###################################################################################
+###########################################################################
+###################################################################################
+###########################################################################
+
+
+rm(list=setdiff(ls(), "joined"))
+#################################               #################################                                           
+########################################                                         
+########################################
+#########################################   APARTS APARTS APARTS APARTS
+################################ ##############################
+
+joinedAparts <-joined %>% 
+  select(Category, Checkin, Hotel, Price, Room, Breakfast, Occupancy, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable")
+##################################
+
+
+Apart_Gorky <- joinedAparts %>% 
+  select(Category, Occupancy, Checkin, Hotel, Price, Room, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Gorky Gorod Apartments")
+
+Apart_Gorky <- Apart_Gorky %>% filter(Room %in% One-Bedroom Apartment)
+
+#### Проверка 
+
+temp <- Apart_Gorky %>% filter(Hotel == "Gorky Gorod Apartments") 
+unique(temp$Room)
+
+####
+#####
+
+Apart_Valset <- joinedAparts %>% 
+  select(Category, Occupancy, Checkin, Hotel, Price, Room, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "VALSET apartments by AZIMUT Rosa Khutor")
+
+Apart_Valset <- Apart_Valset %>% filter(Room %in% c("Apartment with Kitchen - Building 4",
+                                                    "Apartment with Kitchen - Building 5"))
+
+#### Проверка 
+
+temp <- Apart_Valset %>% filter(Hotel == "VALSET apartments by AZIMUT Rosa Khutor") 
+unique(temp$Room)
+
+################
+############################################
+#### 
+################
+############################################
+#### 
+
+Apart_Parkovy <- joinedAparts %>% 
+  select(Category, Occupancy, Checkin, Hotel, Price, Room, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "ApartHotel Imeretinsky - Parkovy Kvartal")
+
+Apart_Parkovy <- Apart_Parkovy %>% filter(Room %in% "One-Bedroom Apartment")
+
+
+#### Проверка 
+
+temp <- Apart_Parkovy %>% filter(Hotel == "ApartHotel Imeretinsky - Parkovy Kvartal") 
+unique(temp$Room)
+
+########################
+Apart_Morskoy <- joinedAparts %>% 
+  select(Category, Occupancy, Checkin, Hotel, Price, Room, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Apart Hotel Imeretinskiy - Morskoy Kvartal")
+
+Apart_Morskoy <- Apart_Morskoy %>% filter(Room %in% c("One-Bedroom Apartment with Kitchen",
+                                                      "One-Bedroom Apartment"))
+
+#### Проверка 
+
+temp <- Apart_Morskoy %>% filter(Hotel == "Apart Hotel Imeretinskiy - Morskoy Kvartal") 
+unique(temp$Room)
+
+########################
+
+Apart_Zapovedniy <- joinedAparts %>% 
+  select(Category, Occupancy, Checkin, Hotel, Price, Room, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Apart Hotel Imeretinskiy - Zapovedniy Kvartal")
+
+Apart_Zapovedniy <- Apart_Zapovedniy %>% filter(Room %in% "One-Bedroom Apartment")
+
+#### Проверка 
+
+temp <- Apart_Zapovedniy %>% filter(Hotel == "Apart Hotel Imeretinskiy - Zapovedniy Kvartal") 
+unique(temp$Room)
+
+########################
+
+Apart_Pribrezhny <- joinedAparts %>% 
+  select(Category, Occupancy, Checkin, Hotel, Price, Room, Refundable, Deposit,  MLOS) %>%
+  filter(Category == "апартаменты", Occupancy ==2, Refundable == "Возвратное"|Refundable =="Refundable",
+         Hotel == "Apart Hotel Imeretinsky - Pribrezhny Kvartal")
+
+Apart_Pribrezhny <- Apart_Pribrezhny %>% filter(Room %in% "One-Bedroom Apartment")
+
+#### Проверка 
+
+temp <- Apart_Pribrezhny %>% filter(Hotel == "Apart Hotel Imeretinsky - Pribrezhny Kvartal") 
+unique(temp$Room)
+
+
+joined3Star <- rbind(Apart_Gorky,
+                     Apart_Valset,
+                     Apart_Morskoy,
+                     Apart_Parkovy,
+                     Apart_Zapovedniy,
+                     Apart_Pribrezhny)  
+
+
+setwd("C:/R")
+write.csv(joined3Star, paste0("apart", format(Sys.time(), "%d-%b-%Y %H.%M"), ".csv"))
